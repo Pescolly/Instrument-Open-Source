@@ -1,0 +1,87 @@
+{
+    "patcher": {
+        "fileversion": 1,
+        "appversion": {
+            "major": 9,
+            "minor": 1,
+            "revision": 0,
+            "architecture": "x64",
+            "modernui": 1
+        },
+        "classnamespace": "dsp.gen",
+        "rect": [ 414.0, 174.0, 996.0, 823.0 ],
+        "boxes": [
+            {
+                "box": {
+                    "id": "obj-7",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 331.0, 7.0, 182.0, 22.0 ],
+                    "text": "param @name midi @default 69"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-6",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 40.0, 7.0, 231.0, 22.0 ],
+                    "text": "param @name midiZeroFreq @default 20"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-5",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 455.0, 693.0, 35.0, 22.0 ],
+                    "text": "out 2"
+                }
+            },
+            {
+                "box": {
+                    "code": "table_size = 12;\n\r\ni = midi % 12;\r\n\r\nout2 = i;\r\n\r\nratio = 1.0;\r\nif (i == 0) { \r\n    ratio = 1.0;    \r\n}\r\nelse if (i == 1) { \r\n    ratio = 1.071773;\r\n}\r\nelse if (i == 2) { \r\n    ratio = 1.118034;    \r\n}\r\nelse if (i == 3) { \r\n    ratio = 1.168;\r\n}\r\nelse if (i == 4) { \r\n    ratio = 1.267;\r\n}\r\nelse if (i == 5) { \r\n    ratio = 1.333;  \r\n}\r\nelse if (i == 6) { \r\n    ratio = 1.43;    \r\n}\r\nelse if (i == 7) { \r\n    ratio = 1.5;\r\n}\r\nelse if (i == 8) { \r\n    ratio = 1.57;\r\n}\r\nelse if (i == 9) { \r\n    ratio = 1.7;\r\n}\r\nelse if (i == 10) { \r\n    ratio = 1.75;\r\n}\r\nelse if (i == 11) { \r\n    ratio = 1.83;\r\n}\r\n\noct = floor(midi / table_size);\nfreq = midiZeroFreq * ratio * pow(2, oct);\n\nout1 = freq;\n",
+                    "fontface": 0,
+                    "fontname": "<Monospaced>",
+                    "fontsize": 12.0,
+                    "id": "obj-3",
+                    "maxclass": "codebox",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 20.0, 61.0, 470.0, 518.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-4",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 20.0, 641.0, 35.0, 22.0 ],
+                    "text": "out 1"
+                }
+            }
+        ],
+        "lines": [
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "source": [ "obj-3", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-5", 0 ],
+                    "source": [ "obj-3", 1 ]
+                }
+            }
+        ],
+        "autosave": 0
+    }
+}

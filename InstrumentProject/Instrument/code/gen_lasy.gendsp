@@ -1,0 +1,168 @@
+{
+    "patcher": {
+        "fileversion": 1,
+        "appversion": {
+            "major": 9,
+            "minor": 1,
+            "revision": 2,
+            "architecture": "x64",
+            "modernui": 1
+        },
+        "classnamespace": "dsp.gen",
+        "rect": [ 34.0, 100.0, 1494.0, 983.0 ],
+        "boxes": [
+            {
+                "box": {
+                    "id": "obj-2",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 593.0, 10.0, 209.0, 22.0 ],
+                    "text": "buffer playbackBuffer playback_buffer"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-14",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 181.0, 10.0, 131.0, 22.0 ],
+                    "text": "history phasorHistory 0"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-11",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 917.0, 925.0, 35.0, 22.0 ],
+                    "text": "out 4"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-3",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 628.0, 925.0, 35.0, 22.0 ],
+                    "text": "out 3"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-13",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 339.0, 925.0, 35.0, 22.0 ],
+                    "text": "out 2"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-12",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 372.0, 82.0, 188.0, 22.0 ],
+                    "text": "buffer transferTable transfer_table"
+                }
+            },
+            {
+                "box": {
+                    "code": "History currentState(0);\nHistory prevPhase(0);\n\ntransTableSize = dim(transferTable);\nstateABufferSize = dim(stateABuffer);\nstateBBufferSize = dim(stateBBuffer);\r\nplaybackBufferSize = dim(playbackBuffer);\n\nphase = in1;\nwrapped = phase < prevPhase;\nprevPhase = phase;\n\nif (wrapped) {\n    if (currentState == 0) {\n        for (i = 0; i < playbackBufferSize; i += 1) {\n            valueM1 = peek(stateABuffer, i - 1, boundmode=\"wrap\", interp=\"linear\", index=\"samples\");\n            value   = peek(stateABuffer, i, interp=\"linear\", index=\"samples\");\n            valueP1 = peek(stateABuffer, i + 1, boundmode=\"wrap\", interp=\"linear\", index=\"samples\");\n\n            avg_value = abs(valueM1 * transTableSize + value * transTableSize + valueP1 * transTableSize) / 3;\n            avg_value = clamp(avg_value, 0, transTableSize);\n\n            tTableValue = peek(transferTable, avg_value, boundmode=\"wrap\", index=\"samples\");\n\n            poke(stateBBuffer, tTableValue, i, boundmode=\"wrap\", index=\"samples\");\r\n            poke(playbackBuffer, tTableValue, i, boundmode=\"wrap\", index=\"samples\");\r\n            \n            currentState = 1;\n        }\n    }\n    else if (currentState == 1)\n    {\n        for (i = 0; i < playbackBufferSize; i += 1) {\n            valueM1 = peek(stateBBuffer, i - 1, boundmode = \"wrap\", interp=\"linear\", index=\"samples\");\n            value = peek(stateBBuffer, i, index=\"samples\");\n            valueP1 = peek(stateBBuffer, i + 1, boundmode = \"wrap\", interp=\"linear\", index=\"samples\");\n\n            avg_value = abs(valueM1 * transTableSize + value * transTableSize + valueP1 * transTableSize) / 3;\n            avg_value = clamp(avg_value, 0, transTableSize);\n\n            tTableValue = peek(transferTable, avg_value, boundmode = \"wrap\", index=\"samples\");\n\r\n            poke(stateABuffer, tTableValue, i, boundmode=\"wrap\", index=\"samples\");\r\n            poke(playbackBuffer, tTableValue, i, boundmode=\"wrap\", index=\"samples\");\n\n            currentState = 0;\n        }\n    }\n}\r\n\r\nout1 = peek(playbackBuffer, phase, boundmode = \"wrap\", index = \"phase\");\nout2 = currentState;\r\nout3 = phase;\nout4 = prevPhase;\r\n",
+                    "fontface": 0,
+                    "fontname": "<Monospaced>",
+                    "fontsize": 12.0,
+                    "id": "obj-10",
+                    "maxclass": "codebox",
+                    "numinlets": 1,
+                    "numoutlets": 4,
+                    "outlettype": [ "", "", "", "" ],
+                    "patching_rect": [ 50.0, 117.0, 886.0, 761.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-7",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 372.0, 47.0, 183.0, 22.0 ],
+                    "text": "buffer stateBBuffer lasy_buffer_b"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-6",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 372.0, 10.0, 183.0, 22.0 ],
+                    "text": "buffer stateABuffer lasy_buffer_a"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-1",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 50.0, 14.0, 28.0, 22.0 ],
+                    "text": "in 1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-4",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 50.0, 930.0, 35.0, 22.0 ],
+                    "text": "out 1"
+                }
+            }
+        ],
+        "lines": [
+            {
+                "patchline": {
+                    "destination": [ "obj-10", 0 ],
+                    "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-11", 0 ],
+                    "source": [ "obj-10", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-13", 0 ],
+                    "source": [ "obj-10", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-3", 0 ],
+                    "source": [ "obj-10", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "source": [ "obj-10", 0 ]
+                }
+            }
+        ]
+    }
+}

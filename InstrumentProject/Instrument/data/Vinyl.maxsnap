@@ -1,0 +1,21 @@
+{
+	"filetype" : "C74Snapshot",
+	"version" : 2,
+	"minorversion" : 0,
+	"name" : "Vinyl",
+	"origin" : "Vinyl.vst3",
+	"type" : "VST3",
+	"subtype" : "AudioEffect",
+	"embed" : 0,
+	"snapshot" : 	{
+		"pluginname" : "Vinyl.vst3",
+		"plugindisplayname" : "Vinyl",
+		"pluginsavedname" : "/Library/Audio/Plug-Ins/VST3/Vinyl.vst3",
+		"pluginsaveduniqueid" : 0,
+		"version" : 1,
+		"isbank" : 0,
+		"isbase64" : 1,
+		"blob" : "960.VMjLgb6....OVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9XyL23xZxITaEwjKt3hKPIlPt3hKL8VPt3hYG01ZsQiL08VSLAkX2HCM0IzRjQmPEgzYBk0SwD0UGIUZVQ0aEoGY2nkctPVd24Dd2EEbtAWNqjCdOAiRzbDTRkDYvn0ZWYFV1HlLGcCNvHyXAQ1aCIzY0jSUNMEZkYEZVgTPIQ2R0rjaWglQNoEaGEiME8DTxjDQGkzY44xc4P2Up0DMRYlQhYGdoYzMFozJIYFZjIlVzkjSqAiSn0zTsokSMg0RmgyXLkkMNk0awMiKWcSSJcjZzHGYjUFVYgkZkkyUKI1QukyXEk0bhckMyDyYC0zRyDiSUIVUwbTZk8TPzQ2TVwTcUITUQECMZoTLEkmZ4LGY5UiQlYmS3DSUqwVNp4DRiEzUyIyP2rzY4f2XxTkXNMGUGslLiElKv8Dc2.SUTclXtnjaogSQO8zSUEmU3MDUAcVMIYVRMQGZzUjXOESNxDjdxAkRHI2bvHTapYWXCkkR0PFTSkEYAIkdOYWXvcCShQlbTICa5EVPnYyMgciVMQTR5MVXwLSZvDWSwYySVozLqbGQickYTkGQTkEQuoTQU8Tb2YzY0IGS0omdX41bygiaK8TXJAyRQYkRZokaJYSPAcWUqfjPi0zPjglU1n2MJMGRyT1TiASMyfTQA0zZrICR3ASPhw1PBYWQyQzR2LjMz7FctfyLTECMIklRYMiPoUkTgUWRMg2Jz.WQNslLvPEdjUyJ4gGaqQTL47TVvwVRAkiTEASLksBaVEFRrsFMXc1TtwjUEMyMNQlSD0lcCgjStTzXK01LoUEL4nFaiA0SzPETSclRzwjSZUDR2n2YvUUd14jMtvVMCMlQ3fVMnACYxACRwkyP0DFVgACUNkzSoolX5wjSoEWQuMTNXI0UWUTSx7TYFoTdKUlblYFNqYFTFYTaVISN1omd4sxRtb0SJYkaSMlS0YWTtHUaioTMTY0TkYzcLoEUV8FQ1bGNLUSXO4zMIgUSF8jc1I2JlcVSqAURxLUanUVTuMWZEISUwfyTjIFbyUCc18zUhMFTQklVBgUQFQDbo0VTr0VVAoVYFg1UwcTdvIDZZAiUi0lRzAmbqzjYYYWcyfFdJICUAoGMRoEaYUjP1HmbR01U1byQ4oVY0f2P77RRC8Vav8lak4Fc9vSREQVZzMzatQmbuwFakImOv3BOujTQjkFcC8lazI2arwVYx4COuX0TTMCTrU2Yo41TzEFck4C."
+	}
+
+}

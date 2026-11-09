@@ -1,0 +1,10 @@
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/code
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/data
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/export
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/export/max
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/export/max/docs
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/export/max/externals
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/media
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/other
+Macintosh HD:/Users/armen/Dropbox/Machine/Max/Instrument/patchers

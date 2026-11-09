@@ -1,0 +1,149 @@
+{
+    "patcher": {
+        "fileversion": 1,
+        "appversion": {
+            "major": 9,
+            "minor": 1,
+            "revision": 2,
+            "architecture": "x64",
+            "modernui": 1
+        },
+        "classnamespace": "dsp.gen",
+        "rect": [ 215.0, 100.0, 1166.0, 983.0 ],
+        "boxes": [
+            {
+                "box": {
+                    "id": "obj-6",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 479.89, 16.32, 228.0, 22.0 ],
+                    "text": "param wave @default 0 @min 0 @max 3"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-5",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 85.5, 120.0, 309.0, 22.0 ],
+                    "text": "param detunePercent @min -100 @max 100 @default 0"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-1",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 84.0, 72.0, 181.0, 22.0 ],
+                    "text": "param index @min 0 @max 100"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-2",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 834.0, 153.0, 80.0, 22.0 ],
+                    "text": "in 2 envelope"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-11",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 85.0, 48.0, 198.0, 22.0 ],
+                    "text": "param feedback 0 @min 0 @max 1"
+                }
+            },
+            {
+                "box": {
+                    "code": "History carrierPhase(0);\nHistory carrierFeedback(0);\n\nParam wave(0); // 0=sine, 1=saw, 2=square, 3=triangle\n\nmodulator = in1;\nenvelope = in2;\n\n// FM + feedback\nmodulatorXIndex = modulator * index;\nmodWithFeedback = (modulatorXIndex + carrierFeedback) * 0.5;\n\n// phase accumulation\ncarrierPhase += frequency * ratio / samplerate;\ncarrierPhase = wrap(carrierPhase);\n\n// detune\ncarrierFreq = carrierPhase * twopi;\ncarrierFreqDetuned = carrierFreq + (carrierFreq * (detunePercent / 100));\n\n// ---- waveform generation (phase-based) ----\n\n// normalized phase (0–1)\np = carrierPhase;\n\n// sine (uses radians)\nsine = sin(carrierFreqDetuned + modWithFeedback);\n\n// for non-sine, apply modulation in phase domain\npm = wrap(p + (modWithFeedback / twopi));\n\n// saw\nsaw = (pm * 2) - 1;\n\n// square\nsquare = pm < 0.5 ? 1 : -1;\n\n// triangle\ntriangle = abs((pm * 2) - 1) * 2 - 1;\n\n// ---- waveform selection ----\n\noutWave = sine;\n\nif (wave == 1) { outWave = saw; }\nif (wave == 2) { outWave = square; }\nif (wave == 3) { outWave = triangle; }\n\n// output + feedback\ncarrierOutput = outWave * envelope;\ncarrierFeedback = carrierOutput * feedback;\n\nout = carrierOutput;",
+                    "fontface": 0,
+                    "fontname": "<Monospaced>",
+                    "fontsize": 12.0,
+                    "id": "obj-3",
+                    "maxclass": "codebox",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 85.0, 209.0, 768.0, 467.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-10",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 85.0, 153.0, 95.0, 22.0 ],
+                    "text": "in 1 modulator 0"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-19",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 85.0, 96.0, 179.0, 22.0 ],
+                    "text": "param ratio 1 @min 0 @max 10"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 85.0, 19.0, 293.0, 22.0 ],
+                    "text": "param frequency @min 20 @max 5000 @default 440"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-4",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 85.0, 698.0, 35.0, 22.0 ],
+                    "text": "out 1"
+                }
+            }
+        ],
+        "lines": [
+            {
+                "patchline": {
+                    "destination": [ "obj-3", 0 ],
+                    "source": [ "obj-10", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-3", 1 ],
+                    "source": [ "obj-2", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "source": [ "obj-3", 0 ]
+                }
+            }
+        ],
+        "autosave": 0
+    }
+}
